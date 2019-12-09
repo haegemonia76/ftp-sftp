@@ -49,6 +49,6 @@
     "lint": "eslint ."
   },
   "files": [
-    "lib/**/*"
+    "src/**/*"
   ]
 }
