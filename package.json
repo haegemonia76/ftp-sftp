@@ -43,7 +43,7 @@
     "type": "git",
     "url": "git+https://github.com/haegemonia76/ftp-sftp.git"
   },
-  "version": "1.0.5",
+  "version": "1.0.6",
   "scripts": {
     "build": "tsc",
     "lint": "eslint ."
