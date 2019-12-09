@@ -36,14 +36,14 @@
     "async"
   ],
   "license": "ISC",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
   "name": "local-ftp-sftp",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/haegemonia76/ftp-sftp.git"
   },
-  "version": "1.0.8",
+  "version": "1.0.9",
   "scripts": {
     "build": "tsc",
     "lint": "eslint ."
