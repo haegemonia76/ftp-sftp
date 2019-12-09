@@ -5,7 +5,7 @@ import FtpFileSystem from './class/ftpFileSystem';
 import SftpFileSystem from './class/sftpFileSystem';
 import SftpFileInfo from './class/sftpFileInfo';
 
-export default {
+export {
     FileSystem,
     FileInfo,
     LocalFileSystem,
