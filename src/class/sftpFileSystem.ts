@@ -66,6 +66,16 @@ export default class SftpFileSystem extends FileSystem {
         return this.client.rename(oldPath, newPath);
     }
 
+    /**
+     * Tests to see if remote file or directory exists.
+     * Returns type of remote object if it exists or false if it does not.
+     * @param path path to the file or directory to test
+     * @returns {boolean | string} false or d, -, l (dir, file or link)
+     */
+    async exists(path: string): Promise<boolean | string> {
+        return this.client.exists(path);
+    }
+
     async end() {
         await this.client.end();
     }

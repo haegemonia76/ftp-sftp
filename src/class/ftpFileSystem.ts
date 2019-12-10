@@ -10,7 +10,7 @@ export default class FtpFileSystem extends FileSystem {
         this.client = client;
     }
 
-    static async create(host: string, port: number, user: string, password: string) {
+    static async create(host: string, port: number, user: string, password: string): Promise<FtpFileSystem | Error> {
         const c = new FtpClient();
         return new Promise((resolve, reject) => {
             c.on('ready', () => {
@@ -28,7 +28,7 @@ export default class FtpFileSystem extends FileSystem {
         });
     }
 
-    list(path: string) {
+    list(path: string): Promise<Array<FtpFileInfo>> | Error {
         return new Promise((resolve, reject) => {
             this.client.list(path, (err: Error, listing: Array<Stats>) => {
                 if (err) {
@@ -39,7 +39,7 @@ export default class FtpFileSystem extends FileSystem {
         });
     }
 
-    put(src: string, toPath: string) {
+    put(src: string, toPath: string): Promise<boolean> | Error {
         return new Promise((resolve, reject) => {
             this.client.put(src, toPath, (err: Error) => {
                 if (err) {
@@ -50,7 +50,7 @@ export default class FtpFileSystem extends FileSystem {
         });
     }
 
-    get(path: string) {
+    get(path: string): Promise<NodeJS.ReadableStream> | Error {
         return new Promise((resolve, reject) => {
             this.client.get(path, (err: Error, stream: NodeJS.ReadableStream) => {
                 if (err) {
@@ -61,7 +61,7 @@ export default class FtpFileSystem extends FileSystem {
         });
     }
 
-    mkdir(path: string, recursive: boolean) {
+    mkdir(path: string, recursive: boolean): Promise<boolean> | Error {
         return new Promise((resolve, reject) => {
             this.client.mkdir(path, recursive, (err: Error) => {
                 if (err) {
@@ -72,18 +72,18 @@ export default class FtpFileSystem extends FileSystem {
         });
     }
 
-    rmdir(path: string, recursive: boolean) {
+    rmdir(path: string, recursive: boolean): Promise<boolean> | Error {
         return new Promise((resolve, reject) => {
             this.client.rmdir(path, recursive, (err: Error) => {
                 if (err) {
                     return reject(err);
                 }
-                resolve(1);
+                resolve(true);
             });
         });
     }
 
-    delete(path: string) {
+    delete(path: string): Promise<string> | Error {
         return new Promise((resolve, reject) => {
             this.client.delete(path, (err: Error) => {
                 if (err) {
@@ -94,7 +94,7 @@ export default class FtpFileSystem extends FileSystem {
         });
     }
 
-    rename(oldPath: string, newPath: string) {
+    rename(oldPath: string, newPath: string): Promise<boolean> | Error {
         return new Promise((resolve, reject) => {
             this.client.rename(oldPath, newPath, (err: Error) => {
                 if (err) {
@@ -105,7 +105,18 @@ export default class FtpFileSystem extends FileSystem {
         });
     }
 
-    async end() {
-        await this.client.end();
+    exists(path: string): Promise<Boolean> {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const result = await this.list(path);
+            } catch (err) {
+                return resolve(false);
+            }
+            resolve(true);
+        });
+    }
+
+    end(): void {
+        this.client.end();
     }
 }
