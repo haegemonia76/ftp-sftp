@@ -14,7 +14,7 @@
     "@types/ftp": "^0.3.30",
     "@types/ssh2-sftp-client": "^4.1.2",
     "ftp": "^0.3.10",
-    "ssh2-sftp-client": "^4.3.0"
+    "ssh2-sftp-client": "^7.0.0"
   },
   "devDependencies": {
     "@types/node": "^12.12.15",
